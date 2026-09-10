@@ -92,7 +92,7 @@ Turn your Android smartphone into a high-precision, hardware-level remote trackp
 ## 📥 Installation
 
 ### 🍏 macOS (Server)
-1. Navigate to the [Releases](https://github.com/temur/mac-remote/releases) page and download the latest `MacRemote-macOS.zip`.
+1. Navigate to the [Releases](https://github.com/ibrahimtemur/mac-remote/releases) page and download the latest `MacRemote-macOS.zip`.
 2. Extract the archive and drag **Mac Remote.app** into your `/Applications` folder.
 3. **Important Accessibility Permission:**
    - Open **macOS System Settings** > **Privacy & Security** > **Accessibility**.
@@ -100,7 +100,7 @@ Turn your Android smartphone into a high-precision, hardware-level remote trackp
 4. Launch **Mac Remote**, click **Start Server**, and note the 4-digit PIN.
 
 ### 🤖 Android (Client)
-1. Download the latest `MacRemote-Android.apk` from the [Releases](https://github.com/temur/mac-remote/releases) page.
+1. Download the latest `MacRemote-Android.apk` from the [Releases](https://github.com/ibrahimtemur/mac-remote/releases) page.
 2. Open the downloaded file on your Android device. If prompted, allow *"Install unknown apps"* for your browser or file manager.
 3. Open **Mac Remote**, tap your Mac from the auto-discovered list (or enter the IP / Ngrok URL manually), enter the 4-digit PIN, and connect.
 
