@@ -1,0 +1,8 @@
+websockets
+pynput
+zeroconf
+mss
+Pillow
+pyngrok
+PyQt6
+py2app
