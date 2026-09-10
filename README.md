@@ -24,15 +24,16 @@ Turn your Android smartphone into a high-precision, hardware-level remote trackp
 <div align="center">
   <table>
     <tr>
-      <td align="center"><b>Android Trackpad & Live Screen</b></td>
-      <td align="center"><b>macOS Server Control Panel</b></td>
+      <td align="center"><b>1. Android Discovery & Pairing</b></td>
+      <td align="center"><b>2. Trackpad, Mirroring & Quality Tiers</b></td>
+      <td align="center"><b>3. macOS Server Control Panel</b></td>
     </tr>
     <tr>
-      <td><img src="screenshots/android_preview.png" alt="Android Client Interface" width="320"/></td>
-      <td><img src="screenshots/mac_server.png" alt="macOS Server GUI" width="400"/></td>
+      <td align="center" valign="top"><img src="screenshots/android_connection.png" alt="Android Connection Screen" width="230"/></td>
+      <td align="center" valign="top"><img src="screenshots/android_preview.png" alt="Android Trackpad & Live Screen" width="230"/></td>
+      <td align="center" valign="top"><img src="screenshots/mac_server.png" alt="macOS Server GUI" width="280"/></td>
     </tr>
   </table>
-  <p><i>(Place your actual screenshots inside the <code>screenshots/</code> directory)</i></p>
 </div>
 
 ---
