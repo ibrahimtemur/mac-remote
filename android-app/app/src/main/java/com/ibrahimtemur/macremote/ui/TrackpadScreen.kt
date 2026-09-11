@@ -1,4 +1,4 @@
-package com.example.macremote.ui
+package com.ibrahimtemur.macremote.ui
 
 import android.app.Activity
 import android.content.pm.ActivityInfo
@@ -46,7 +46,7 @@ import android.content.Context
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.example.macremote.network.WebSocketClient
+import com.ibrahimtemur.macremote.network.WebSocketClient
 import kotlin.math.abs
 
 object TrackpadStrings {

@@ -1,4 +1,4 @@
-package com.example.macremote
+package com.ibrahimtemur.macremote
 
 import android.content.Context
 import android.content.Intent
@@ -24,10 +24,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.macremote.network.ConnectionState
-import com.example.macremote.network.DiscoveryManager
-import com.example.macremote.network.WebSocketClient
-import com.example.macremote.ui.TrackpadScreen
+import com.ibrahimtemur.macremote.network.ConnectionState
+import com.ibrahimtemur.macremote.network.DiscoveryManager
+import com.ibrahimtemur.macremote.network.WebSocketClient
+import com.ibrahimtemur.macremote.ui.TrackpadScreen
 
 class MainActivity : ComponentActivity() {
     private lateinit var discoveryManager: DiscoveryManager

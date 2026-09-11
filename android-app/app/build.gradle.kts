@@ -4,14 +4,14 @@ plugins {
 }
 
 android {
-    namespace = "com.example.macremote"
+    namespace = "com.ibrahimtemur.macremote"
     compileSdk = 34
 
     val rootVersionFile = rootDir.resolve("../VERSION")
     val appVersionName = if (rootVersionFile.exists()) rootVersionFile.readText().trim() else "1.0.0"
 
     defaultConfig {
-        applicationId = "com.example.macremote"
+        applicationId = "com.ibrahimtemur.macremote"
         minSdk = 26
         targetSdk = 34
         versionCode = 2

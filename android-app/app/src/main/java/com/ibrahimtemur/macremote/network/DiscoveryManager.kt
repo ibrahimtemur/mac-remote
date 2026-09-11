@@ -1,4 +1,4 @@
-package com.example.macremote.network
+package com.ibrahimtemur.macremote.network
 
 import android.content.Context
 import android.net.nsd.NsdManager
