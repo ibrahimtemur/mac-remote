@@ -22,16 +22,31 @@ Turn your Android smartphone into a high-precision, hardware-level remote trackp
 ## 📸 Screenshots
 
 <div align="center">
+  <h3>🇬🇧 English Interface</h3>
   <table>
     <tr>
       <td align="center"><b>1. Android Discovery & Pairing</b></td>
-      <td align="center"><b>2. Trackpad, Mirroring & Quality Tiers</b></td>
+      <td align="center"><b>2. Trackpad, Mirror & Quality Tiers</b></td>
       <td align="center"><b>3. macOS Server Control Panel</b></td>
     </tr>
     <tr>
-      <td align="center" valign="top"><img src="screenshots/android_connection.png" alt="Android Connection Screen" width="230"/></td>
-      <td align="center" valign="top"><img src="screenshots/android_preview.png" alt="Android Trackpad & Live Screen" width="230"/></td>
-      <td align="center" valign="top"><img src="screenshots/mac_server.png" alt="macOS Server GUI" width="280"/></td>
+      <td align="center" valign="top"><img src="screenshots/android_connection_en.png" alt="Android Connection Screen (EN)" width="230"/></td>
+      <td align="center" valign="top"><img src="screenshots/android_trackpad_en.png" alt="Android Trackpad & Live Screen (EN)" width="230"/></td>
+      <td align="center" valign="top"><img src="screenshots/mac_server_en.png" alt="macOS Server GUI (EN)" width="280"/></td>
+    </tr>
+  </table>
+
+  <h3>🇹🇷 Türkçe Arayüz</h3>
+  <table>
+    <tr>
+      <td align="center"><b>1. Android Cihaz Keşfi & Bağlantı</b></td>
+      <td align="center"><b>2. Trackpad, Ekran & Kalite Menüsü</b></td>
+      <td align="center"><b>3. macOS Sunucu Kontrol Paneli</b></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top"><img src="screenshots/android_connection_tr.png" alt="Android Bağlantı Ekranı (TR)" width="230"/></td>
+      <td align="center" valign="top"><img src="screenshots/android_trackpad_tr.png" alt="Android Trackpad & Canlı Ekran (TR)" width="230"/></td>
+      <td align="center" valign="top"><img src="screenshots/mac_server_tr.png" alt="macOS Sunucu GUI (TR)" width="280"/></td>
     </tr>
   </table>
 </div>
