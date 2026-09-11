@@ -22,14 +22,35 @@ android {
         }
     }
 
+    val localProperties = java.util.Properties().apply {
+        val localPropsFile = rootDir.resolve("local.properties")
+        if (localPropsFile.exists()) {
+            localPropsFile.inputStream().use { load(it) }
+        }
+    }
+
     signingConfigs {
         create("release") {
-            val keystoreFile = System.getenv("ANDROID_KEYSTORE_FILE")
-            if (!keystoreFile.isNullOrEmpty() && file(keystoreFile).exists()) {
-                storeFile = file(keystoreFile)
-                storePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
-                keyAlias = System.getenv("ANDROID_KEY_ALIAS")
-                keyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+            val envKeystore = System.getenv("ANDROID_KEYSTORE_FILE")
+            val propKeystore = localProperties.getProperty("RELEASE_STORE_FILE")
+            val defaultRootKeystore = rootDir.resolve("../upload-keystore.jks")
+
+            val resolvedKeystore = when {
+                !envKeystore.isNullOrEmpty() && file(envKeystore).exists() -> file(envKeystore)
+                !propKeystore.isNullOrEmpty() && file(propKeystore).exists() -> file(propKeystore)
+                defaultRootKeystore.exists() -> defaultRootKeystore
+                else -> null
+            }
+
+            val storePass = System.getenv("ANDROID_KEYSTORE_PASSWORD") ?: localProperties.getProperty("RELEASE_STORE_PASSWORD")
+            val keyUsr = System.getenv("ANDROID_KEY_ALIAS") ?: localProperties.getProperty("RELEASE_KEY_ALIAS") ?: "upload"
+            val keyPass = System.getenv("ANDROID_KEY_PASSWORD") ?: localProperties.getProperty("RELEASE_KEY_PASSWORD") ?: storePass
+
+            if (resolvedKeystore != null && !storePass.isNullOrEmpty()) {
+                storeFile = resolvedKeystore
+                storePassword = storePass
+                keyAlias = keyUsr
+                keyPassword = keyPass
             }
         }
     }
@@ -38,9 +59,9 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            val keystoreFile = System.getenv("ANDROID_KEYSTORE_FILE")
-            if (!keystoreFile.isNullOrEmpty() && file(keystoreFile).exists()) {
-                signingConfig = signingConfigs.getByName("release")
+            val releaseSigning = signingConfigs.getByName("release")
+            if (releaseSigning.storeFile != null && releaseSigning.storeFile!!.exists()) {
+                signingConfig = releaseSigning
             }
         }
     }
