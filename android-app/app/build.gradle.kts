@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.ibrahimtemur.macremote"
-    compileSdk = 34
+    compileSdk = 36
 
     val rootVersionFile = rootDir.resolve("../VERSION")
     val appVersionName = if (rootVersionFile.exists()) rootVersionFile.readText().trim() else "1.0.0"
@@ -15,8 +15,8 @@ android {
     defaultConfig {
         applicationId = "com.ibrahimtemur.macremote"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 2
+        targetSdk = 36
+        versionCode = 3
         versionName = appVersionName
 
         vectorDrawables {
