@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -22,10 +24,12 @@ android {
         }
     }
 
-    val localProperties = java.util.Properties().apply {
+    val localProperties = Properties().apply {
         val localPropsFile = rootDir.resolve("local.properties")
         if (localPropsFile.exists()) {
-            localPropsFile.inputStream().use { load(it) }
+            localPropsFile.inputStream().use { inputStream ->
+                load(inputStream)
+            }
         }
     }
 
