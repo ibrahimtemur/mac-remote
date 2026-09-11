@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2026-09-11
+
+### Added
+- **Interactive Setup & Connection Guide (Android):**
+  - Added a dedicated setup guide button next to the "Mac Remote" header on the initial connection screen.
+  - Step-by-step modal explaining how to download the Mac app from GitHub Releases, how to install and grant macOS Accessibility permissions, and how to pair using LAN or Ngrok.
+  - Quick action button to open GitHub Releases page directly in the mobile browser.
+- **Bilingual Interface Support (English & Turkish):**
+  - **Android Client:** Added instant language switch button (🇹🇷 TR / 🇬🇧 EN) in the top-right corner of the connection screen, localizing all connection cards, scanning status, PIN dialog, and setup guide.
+  - **macOS Server GUI:** Added a top-bar language selector (🇹🇷 Türkçe / 🇬🇧 English) dynamically localizing server status, Start/Stop buttons, Ngrok toggle, and accessibility permission status.
+  - User language preference is automatically remembered and persisted across app restarts.
+
+---
+
 ## [1.0.0] - 2026-09-11
 
 ### Added
