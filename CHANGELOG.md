@@ -15,9 +15,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Step-by-step modal explaining how to download the Mac app from GitHub Releases, how to install and grant macOS Accessibility permissions, and how to pair using LAN or Ngrok.
   - Quick action button to open GitHub Releases page directly in the mobile browser.
 - **Bilingual Interface Support (English & Turkish):**
-  - **Android Client:** Added instant language switch button (🇹🇷 TR / 🇬🇧 EN) in the top-right corner of the connection screen, localizing all connection cards, scanning status, PIN dialog, and setup guide.
+  - **Android Client:** Added instant language switch button (🇹🇷 TR / 🇬🇧 EN) to both the initial connection screen and the connected Trackpad control bar (next to the cursor visibility icon). Localized quality selector menus, touchpad panel headers, gesture guide hints, physical click/scroll buttons, media controls, and keyboard actions.
   - **macOS Server GUI:** Added a top-bar language selector (🇹🇷 Türkçe / 🇬🇧 English) dynamically localizing server status, Start/Stop buttons, Ngrok toggle, and accessibility permission status.
-  - User language preference is automatically remembered and persisted across app restarts.
+  - User language preference is automatically remembered and persisted across app restarts on both platforms.
+
+### Fixed
+- **macOS App Startup Delay:** Resolved a 60-second unresponsive freeze when interacting with UI elements (such as the language selector) on application launch by disabling `argv_emulation` in py2app configuration.
 
 ---
 

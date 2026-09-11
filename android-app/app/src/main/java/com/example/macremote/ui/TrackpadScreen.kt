@@ -42,17 +42,115 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.content.Context
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.macremote.network.WebSocketClient
 import kotlin.math.abs
 
+object TrackpadStrings {
+    fun get(key: String, lang: String): String {
+        return when (lang) {
+            "en" -> when (key) {
+                "cursor_on" -> "Cursor Visible"
+                "cursor_off" -> "Cursor Hidden"
+                "cursor_visibility" -> "Cursor Visibility"
+                "quality_tooltip" -> "Quality Setting"
+                "q_low" -> "⚡ Low (800p - Fast)"
+                "q_medium" -> "⚖️ Medium (1200p - Balanced)"
+                "q_high" -> "✨ High (1600p - Crisp Text)"
+                "q_ultra" -> "💎 Ultra HD (2200p - Crystal Clear)"
+                "fullscreen" -> "Fullscreen"
+                "exit_fullscreen" -> "Exit Fullscreen"
+                "disconnect" -> "Disconnect"
+                "receiving_screen" -> "Receiving screen..."
+                "hide_touchpad" -> "Hide Touchpad Panel"
+                "show_touchpad" -> "Show Touchpad Panel"
+                "toggle_touchpad" -> "Toggle Touchpad"
+                "rewind_10s" -> "10s Back"
+                "prev" -> "Previous"
+                "play_pause" -> "Play / Pause"
+                "next" -> "Next"
+                "forward_10s" -> "10s Forward"
+                "vol_down" -> "Volume Down"
+                "vol_up" -> "Volume Up"
+                "mute" -> "Mute"
+                "toggle_keyboard" -> "Toggle Keyboard"
+                "type_text" -> "Type text..."
+                "send_text" -> "Send Text"
+                "key_space" -> "␣ Space"
+                "key_backspace" -> "⌫ Backspace"
+                "key_enter" -> "⏎ Enter"
+                "key_esc" -> "Esc"
+                "trackpad" -> "Trackpad"
+                "select_text" -> "Select Text"
+                "selection_active" -> "Selection On"
+                "close" -> "Close"
+                "hint_default" -> "Tap: Click  •  2 Fingers: Scroll & Right Click\nDouble Tap & Drag: Select Text"
+                "hint_selecting" -> "📑 Text Selection Active — Drag to select\nTap again to finish"
+                "left_click" -> "Left Click"
+                "double_click" -> "Double Click"
+                "scroll_up" -> "Scroll Up"
+                "scroll_down" -> "Scroll Down"
+                "right_click" -> "Right Click"
+                else -> key
+            }
+            else -> when (key) { // "tr"
+                "cursor_on" -> "İmleç Açık"
+                "cursor_off" -> "İmleç Gizli"
+                "cursor_visibility" -> "İmleç Görünürlüğü"
+                "quality_tooltip" -> "Kalite Ayarı"
+                "q_low" -> "⚡ Düşük (800p - Hızlı)"
+                "q_medium" -> "⚖️ Orta (1200p - Dengeli)"
+                "q_high" -> "✨ Yüksek (1600p - Net Metin)"
+                "q_ultra" -> "💎 Ultra HD (2200p - Kristal Net)"
+                "fullscreen" -> "Tam Ekran"
+                "exit_fullscreen" -> "Tam Ekrandan Çık"
+                "disconnect" -> "Bağlantıyı Kes"
+                "receiving_screen" -> "Ekran alınıyor..."
+                "hide_touchpad" -> "Touchpad Panelini Gizle"
+                "show_touchpad" -> "Touchpad Panelini Göster"
+                "toggle_touchpad" -> "Touchpad Aç/Kapat"
+                "rewind_10s" -> "10 sn Geri"
+                "prev" -> "Önceki"
+                "play_pause" -> "Oynat / Durdur"
+                "next" -> "Sonraki"
+                "forward_10s" -> "10 sn İleri"
+                "vol_down" -> "Ses Kıs"
+                "vol_up" -> "Ses Aç"
+                "mute" -> "Sessiz"
+                "toggle_keyboard" -> "Klavye Aç / Kapat"
+                "type_text" -> "Metin yazın..."
+                "send_text" -> "Metni Gönder"
+                "key_space" -> "␣ Boşluk"
+                "key_backspace" -> "⌫ Sil"
+                "key_enter" -> "⏎ Enter"
+                "key_esc" -> "Esc"
+                "trackpad" -> "Trackpad"
+                "select_text" -> "Metin Seç"
+                "selection_active" -> "Seçim Açık"
+                "close" -> "Kapat"
+                "hint_default" -> "Dokun: Tıkla  •  2 Parmak: Scroll & Sağ Tık\nÇift Dokunup Kaydır: Metin Seç"
+                "hint_selecting" -> "📑 Metin Seçimi Aktif — Kaydırarak seçin\nBitirmek için tekrar dokunun"
+                "left_click" -> "Sol Tık"
+                "double_click" -> "Çift Tık"
+                "scroll_up" -> "Yukarı Kaydır"
+                "scroll_down" -> "Aşağı Kaydır"
+                "right_click" -> "Sağ Tık"
+                else -> key
+            }
+        }
+    }
+}
+
 @OptIn(androidx.compose.ui.ExperimentalComposeUiApi::class)
 @Composable
 fun TrackpadScreen(modifier: Modifier = Modifier) {
     val screenBitmap by WebSocketClient.screenBitmap.collectAsState()
     val context = LocalContext.current
+    val prefs = remember { context.getSharedPreferences("mac_remote_prefs", Context.MODE_PRIVATE) }
+    var lang by remember { mutableStateOf(prefs.getString("app_lang", "tr") ?: "tr") }
     val activity = context as? Activity
     val haptic = LocalHapticFeedback.current
 
@@ -188,6 +286,27 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                // Language Toggle in Landscape
+                FilledTonalButton(
+                    onClick = {
+                        lang = if (lang == "tr") "en" else "tr"
+                        prefs.edit().putString("app_lang", lang).apply()
+                        haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    },
+                    contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp),
+                    modifier = Modifier.height(40.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.filledTonalButtonColors(
+                        containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.75f)
+                    )
+                ) {
+                    Text(
+                        if (lang == "tr") "🇹🇷 TR" else "🇬🇧 EN",
+                        style = MaterialTheme.typography.labelSmall,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+
                 // Quality selector in landscape
                 Box {
                     FilledTonalIconButton(
@@ -196,14 +315,14 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                             containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.75f)
                         )
                     ) {
-                        Icon(Icons.Default.HighQuality, contentDescription = "Kalite Ayarı")
+                        Icon(Icons.Default.HighQuality, contentDescription = TrackpadStrings.get("quality_tooltip", lang))
                     }
                     DropdownMenu(
                         expanded = showQualityMenu,
                         onDismissRequest = { showQualityMenu = false }
                     ) {
                         DropdownMenuItem(
-                            text = { Text("⚡ Düşük (800p - Hızlı)") },
+                            text = { Text(TrackpadStrings.get("q_low", lang)) },
                             onClick = {
                                 qualityLevel = "low"
                                 WebSocketClient.sendQuality("low")
@@ -212,7 +331,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                             }
                         )
                         DropdownMenuItem(
-                            text = { Text("⚖️ Orta (1200p - Dengeli)") },
+                            text = { Text(TrackpadStrings.get("q_medium", lang)) },
                             onClick = {
                                 qualityLevel = "medium"
                                 WebSocketClient.sendQuality("medium")
@@ -221,7 +340,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                             }
                         )
                         DropdownMenuItem(
-                            text = { Text("✨ Yüksek (1600p - Net Metin)") },
+                            text = { Text(TrackpadStrings.get("q_high", lang)) },
                             onClick = {
                                 qualityLevel = "high"
                                 WebSocketClient.sendQuality("high")
@@ -230,7 +349,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                             }
                         )
                         DropdownMenuItem(
-                            text = { Text("💎 Ultra HD (2200p - Kristal Net)") },
+                            text = { Text(TrackpadStrings.get("q_ultra", lang)) },
                             onClick = {
                                 qualityLevel = "ultra"
                                 WebSocketClient.sendQuality("ultra")
@@ -254,7 +373,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                 ) {
                     Icon(
                         if (showPreviewCursor) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                        contentDescription = "İmleç Görünürlüğü"
+                        contentDescription = TrackpadStrings.get("cursor_visibility", lang)
                     )
                 }
 
@@ -264,7 +383,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                         containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.75f)
                     )
                 ) {
-                    Icon(Icons.Default.TouchApp, contentDescription = "Touchpad Aç/Kapat")
+                    Icon(Icons.Default.TouchApp, contentDescription = TrackpadStrings.get("toggle_touchpad", lang))
                 }
 
                 FilledTonalIconButton(
@@ -273,7 +392,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                         containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.75f)
                     )
                 ) {
-                    Icon(Icons.Default.Close, contentDescription = "Tam Ekrandan Çık")
+                    Icon(Icons.Default.Close, contentDescription = TrackpadStrings.get("exit_fullscreen", lang))
                 }
             }
 
@@ -290,6 +409,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                     modifier = Modifier
                         .width(340.dp)
                         .height(190.dp),
+                    lang = lang,
                     onClose = { isTouchpadOpen = false }
                 )
             }
@@ -327,14 +447,35 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                         Text(
                             "Mac Remote",
                             style = MaterialTheme.typography.titleSmall,
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
                         )
                     }
 
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        horizontalArrangement = Arrangement.spacedBy(5.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
+                        // Language Toggle Button (Right of Mac Remote title, next to eye icon)
+                        FilledTonalButton(
+                            onClick = {
+                                lang = if (lang == "tr") "en" else "tr"
+                                prefs.edit().putString("app_lang", lang).apply()
+                                haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            },
+                            contentPadding = PaddingValues(horizontal = 6.dp, vertical = 0.dp),
+                            modifier = Modifier.height(36.dp),
+                            shape = RoundedCornerShape(10.dp)
+                        ) {
+                            Text(
+                                if (lang == "tr") "🇹🇷 TR" else "🇬🇧 EN",
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 11.sp
+                            )
+                        }
+
                         // Cursor toggle button
                         FilledTonalIconButton(
                             onClick = {
@@ -347,7 +488,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                         ) {
                             Icon(
                                 if (showPreviewCursor) Icons.Default.Visibility else Icons.Default.VisibilityOff,
-                                contentDescription = if (showPreviewCursor) "İmleç Açık" else "İmleç Gizli",
+                                contentDescription = if (showPreviewCursor) TrackpadStrings.get("cursor_on", lang) else TrackpadStrings.get("cursor_off", lang),
                                 modifier = Modifier.size(18.dp)
                             )
                         }
@@ -384,7 +525,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                 onDismissRequest = { showQualityMenu = false }
                             ) {
                                 DropdownMenuItem(
-                                    text = { Text("⚡ Düşük (800p - Hızlı)") },
+                                    text = { Text(TrackpadStrings.get("q_low", lang)) },
                                     onClick = {
                                         qualityLevel = "low"
                                         WebSocketClient.sendQuality("low")
@@ -393,7 +534,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                     }
                                 )
                                 DropdownMenuItem(
-                                    text = { Text("⚖️ Orta (1200p - Dengeli)") },
+                                    text = { Text(TrackpadStrings.get("q_medium", lang)) },
                                     onClick = {
                                         qualityLevel = "medium"
                                         WebSocketClient.sendQuality("medium")
@@ -402,7 +543,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                     }
                                 )
                                 DropdownMenuItem(
-                                    text = { Text("✨ Yüksek (1600p - Net Metin)") },
+                                    text = { Text(TrackpadStrings.get("q_high", lang)) },
                                     onClick = {
                                         qualityLevel = "high"
                                         WebSocketClient.sendQuality("high")
@@ -411,7 +552,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                     }
                                 )
                                 DropdownMenuItem(
-                                    text = { Text("💎 Ultra HD (2200p - Kristal Net)") },
+                                    text = { Text(TrackpadStrings.get("q_ultra", lang)) },
                                     onClick = {
                                         qualityLevel = "ultra"
                                         WebSocketClient.sendQuality("ultra")
@@ -430,7 +571,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                         ) {
                             Icon(
                                 Icons.Default.Fullscreen,
-                                contentDescription = "Tam Ekran",
+                                contentDescription = TrackpadStrings.get("fullscreen", lang),
                                 modifier = Modifier.size(20.dp)
                             )
                         }
@@ -447,7 +588,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                         ) {
                             Icon(
                                 Icons.Default.PowerSettingsNew,
-                                contentDescription = "Bağlantıyı Kes",
+                                contentDescription = TrackpadStrings.get("disconnect", lang),
                                 modifier = Modifier.size(18.dp)
                             )
                         }
@@ -552,7 +693,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                     ) {
                         CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text("Ekran alınıyor...", color = Color.White)
+                        Text(TrackpadStrings.get("receiving_screen", lang), color = Color.White)
                     }
                 }
             }
@@ -575,7 +716,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                 )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
-                    if (isTouchpadOpen) "Touchpad Panelini Gizle" else "Touchpad Panelini Göster",
+                    if (isTouchpadOpen) TrackpadStrings.get("hide_touchpad", lang) else TrackpadStrings.get("show_touchpad", lang),
                     style = MaterialTheme.typography.labelMedium,
                     fontWeight = FontWeight.Medium
                 )
@@ -592,6 +733,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                         .fillMaxWidth()
                         .height(210.dp)
                         .padding(horizontal = 12.dp, vertical = 2.dp),
+                    lang = lang,
                     onClose = { isTouchpadOpen = false }
                 )
             }
@@ -621,7 +763,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                             }
                         ) {
-                            Icon(Icons.Default.FastRewind, contentDescription = "10 sn Geri")
+                            Icon(Icons.Default.FastRewind, contentDescription = TrackpadStrings.get("rewind_10s", lang))
                         }
 
                         IconButton(
@@ -630,7 +772,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                             }
                         ) {
-                            Icon(Icons.Default.SkipPrevious, contentDescription = "Önceki")
+                            Icon(Icons.Default.SkipPrevious, contentDescription = TrackpadStrings.get("prev", lang))
                         }
 
                         FilledIconButton(
@@ -642,7 +784,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                 containerColor = MaterialTheme.colorScheme.primary
                             )
                         ) {
-                            Icon(Icons.Default.PlayArrow, contentDescription = "Oynat / Durdur")
+                            Icon(Icons.Default.PlayArrow, contentDescription = TrackpadStrings.get("play_pause", lang))
                         }
 
                         IconButton(
@@ -651,7 +793,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                             }
                         ) {
-                            Icon(Icons.Default.SkipNext, contentDescription = "Sonraki")
+                            Icon(Icons.Default.SkipNext, contentDescription = TrackpadStrings.get("next", lang))
                         }
 
                         IconButton(
@@ -660,7 +802,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                             }
                         ) {
-                            Icon(Icons.Default.FastForward, contentDescription = "10 sn İleri")
+                            Icon(Icons.Default.FastForward, contentDescription = TrackpadStrings.get("forward_10s", lang))
                         }
                     }
 
@@ -681,7 +823,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                             }
                         ) {
-                            Icon(Icons.Default.VolumeDown, contentDescription = "Ses Kıs")
+                            Icon(Icons.Default.VolumeDown, contentDescription = TrackpadStrings.get("vol_down", lang))
                         }
 
                         IconButton(
@@ -690,7 +832,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                 haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
                             }
                         ) {
-                            Icon(Icons.Default.VolumeUp, contentDescription = "Ses Aç")
+                            Icon(Icons.Default.VolumeUp, contentDescription = TrackpadStrings.get("vol_up", lang))
                         }
 
                         IconButton(
@@ -699,7 +841,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                 haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             }
                         ) {
-                            Icon(Icons.Default.VolumeOff, contentDescription = "Sessiz")
+                            Icon(Icons.Default.VolumeOff, contentDescription = TrackpadStrings.get("mute", lang))
                         }
 
                         FilledTonalIconButton(
@@ -713,7 +855,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                         ) {
                             Icon(
                                 if (isKeyboardOpen) Icons.Default.KeyboardHide else Icons.Default.Keyboard,
-                                contentDescription = "Klavye Aç / Kapat"
+                                contentDescription = TrackpadStrings.get("toggle_keyboard", lang)
                             )
                         }
                     }
@@ -740,7 +882,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                     modifier = Modifier
                                         .weight(1f)
                                         .focusRequester(focusRequester),
-                                    placeholder = { Text("Metin yazın...", style = MaterialTheme.typography.bodySmall) },
+                                    placeholder = { Text(TrackpadStrings.get("type_text", lang), style = MaterialTheme.typography.bodySmall) },
                                     singleLine = true,
                                     textStyle = MaterialTheme.typography.bodyMedium,
                                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
@@ -778,7 +920,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                         containerColor = MaterialTheme.colorScheme.primary
                                     )
                                 ) {
-                                    Icon(Icons.Default.Send, contentDescription = "Metni Gönder")
+                                    Icon(Icons.Default.Send, contentDescription = TrackpadStrings.get("send_text", lang))
                                 }
                             }
 
@@ -797,7 +939,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                     },
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                                 ) {
-                                    Text("␣ Boşluk", style = MaterialTheme.typography.labelSmall, maxLines = 1, softWrap = false)
+                                    Text(TrackpadStrings.get("key_space", lang), style = MaterialTheme.typography.labelSmall, maxLines = 1, softWrap = false)
                                 }
 
                                 FilledTonalButton(
@@ -807,7 +949,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                     },
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                                 ) {
-                                    Text("⌫ Sil", style = MaterialTheme.typography.labelSmall, maxLines = 1, softWrap = false)
+                                    Text(TrackpadStrings.get("key_backspace", lang), style = MaterialTheme.typography.labelSmall, maxLines = 1, softWrap = false)
                                 }
 
                                 FilledTonalButton(
@@ -817,7 +959,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                     },
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                                 ) {
-                                    Text("⏎ Enter", style = MaterialTheme.typography.labelSmall, maxLines = 1, softWrap = false)
+                                    Text(TrackpadStrings.get("key_enter", lang), style = MaterialTheme.typography.labelSmall, maxLines = 1, softWrap = false)
                                 }
 
                                 FilledTonalButton(
@@ -827,7 +969,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
                                     },
                                     contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                                 ) {
-                                    Text("Esc", style = MaterialTheme.typography.labelSmall, maxLines = 1, softWrap = false)
+                                    Text(TrackpadStrings.get("key_esc", lang), style = MaterialTheme.typography.labelSmall, maxLines = 1, softWrap = false)
                                 }
                             }
                         }
@@ -851,6 +993,7 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
 @Composable
 fun TouchpadPanel(
     modifier: Modifier = Modifier,
+    lang: String = "tr",
     onClose: (() -> Unit)? = null
 ) {
     val haptic = LocalHapticFeedback.current
@@ -886,7 +1029,7 @@ fun TouchpadPanel(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        "Trackpad",
+                        TrackpadStrings.get("trackpad", lang),
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -923,7 +1066,7 @@ fun TouchpadPanel(
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
-                            if (isSelecting) "Seçim Açık" else "Metin Seç",
+                            if (isSelecting) TrackpadStrings.get("selection_active", lang) else TrackpadStrings.get("select_text", lang),
                             style = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Medium,
                             maxLines = 1,
@@ -936,7 +1079,7 @@ fun TouchpadPanel(
                             onClick = onClose,
                             modifier = Modifier.size(28.dp)
                         ) {
-                            Icon(Icons.Default.Close, contentDescription = "Kapat", modifier = Modifier.size(16.dp))
+                            Icon(Icons.Default.Close, contentDescription = TrackpadStrings.get("close", lang), modifier = Modifier.size(16.dp))
                         }
                     }
                 }
@@ -1031,8 +1174,8 @@ fun TouchpadPanel(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    if (isSelecting) "📑 Metin Seçimi Aktif — Kaydırarak seçin\nBitirmek için tekrar dokunun"
-                    else "Dokun: Tıkla  •  2 Parmak: Scroll & Sağ Tık\nÇift Dokunup Kaydır: Metin Seç",
+                    if (isSelecting) TrackpadStrings.get("hint_selecting", lang)
+                    else TrackpadStrings.get("hint_default", lang),
                     style = MaterialTheme.typography.bodySmall,
                     fontSize = 11.5.sp,
                     lineHeight = 15.sp,
@@ -1063,7 +1206,7 @@ fun TouchpadPanel(
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
                 ) {
                     Text(
-                        "Sol Tık",
+                        TrackpadStrings.get("left_click", lang),
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         style = MaterialTheme.typography.labelMedium,
                         fontSize = 12.sp,
@@ -1086,7 +1229,7 @@ fun TouchpadPanel(
                     shape = RoundedCornerShape(10.dp)
                 ) {
                     Text(
-                        "Çift Tık",
+                        TrackpadStrings.get("double_click", lang),
                         style = MaterialTheme.typography.labelMedium,
                         fontSize = 12.sp,
                         maxLines = 1,
@@ -1104,7 +1247,7 @@ fun TouchpadPanel(
                     modifier = Modifier.size(38.dp),
                     shape = RoundedCornerShape(10.dp)
                 ) {
-                    Icon(Icons.Default.KeyboardArrowUp, contentDescription = "Yukarı Kaydır", modifier = Modifier.size(20.dp))
+                    Icon(Icons.Default.KeyboardArrowUp, contentDescription = TrackpadStrings.get("scroll_up", lang), modifier = Modifier.size(20.dp))
                 }
 
                 // Scroll Down
@@ -1116,7 +1259,7 @@ fun TouchpadPanel(
                     modifier = Modifier.size(38.dp),
                     shape = RoundedCornerShape(10.dp)
                 ) {
-                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Aşağı Kaydır", modifier = Modifier.size(20.dp))
+                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = TrackpadStrings.get("scroll_down", lang), modifier = Modifier.size(20.dp))
                 }
 
                 // Right Click
@@ -1133,7 +1276,7 @@ fun TouchpadPanel(
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
                 ) {
                     Text(
-                        "Sağ Tık",
+                        TrackpadStrings.get("right_click", lang),
                         color = MaterialTheme.colorScheme.onSecondaryContainer,
                         style = MaterialTheme.typography.labelMedium,
                         fontSize = 12.sp,

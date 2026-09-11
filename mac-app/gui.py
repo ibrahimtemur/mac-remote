@@ -68,6 +68,7 @@ class MainWindow(QMainWindow):
         top_bar = QHBoxLayout()
         top_bar.addStretch()
         self.lang_combo = QComboBox()
+        self.lang_combo.setCursor(Qt.CursorShape.PointingHandCursor)
         self.lang_combo.addItem("🇹🇷 Türkçe", "tr")
         self.lang_combo.addItem("🇬🇧 English", "en")
         saved_lang = self.settings.value("language", "tr")

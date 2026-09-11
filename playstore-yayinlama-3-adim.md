@@ -19,7 +19,7 @@ APK var, ama Play Store için ayrı bir hazırlık gerekiyor. Sırayla
 
 ## 1. UYGULAMA BİLGİLERİNİ VE PAKET ADINI KONTROL ET
 - android-app/app/build.gradle.kts içindeki applicationId'yi kontrol 
-  et (örn. com.temur.macremote gibi benzersiz, geri döndürülmüş domain 
+  et (örn. com.temursoftware.macremote gibi benzersiz, geri döndürülmüş domain 
   formatında olmalı). Eğer generic/varsayılan bir isimse (com.example.* 
   gibi) bana uygun bir applicationId öner ve onayımı al, sonra değiştir.
   ÖNEMLİ: Bu ID Play Console'a yüklendikten sonra ASLA değiştirilemez.

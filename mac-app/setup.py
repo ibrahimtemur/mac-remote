@@ -10,7 +10,7 @@ if os.path.exists(version_file):
 APP = ['gui.py']
 DATA_FILES = ['cursor.png', 'server.py', 'input_controller.py', 'discovery.py']
 OPTIONS = {
-    'argv_emulation': True,
+    'argv_emulation': False,
     'iconfile': 'icon.icns',
     'packages': ['PyQt6', 'pyngrok', 'pynput', 'websockets', 'zeroconf', 'mss', 'PIL', 'ifaddr', 'Quartz', 'AppKit', 'objc', 'Foundation', 'CoreFoundation'],
     'includes': ['PyObjCTools', 'PyObjCTools.KeyValueCoding'],
