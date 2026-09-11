@@ -1,4 +1,5 @@
 import sys
+import os
 import threading
 import asyncio
 from PyQt6.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QWidget, QCheckBox, QLineEdit, QMessageBox, QComboBox
@@ -54,6 +55,8 @@ class ServerThread(threading.Thread):
         self.server.discovery.stop()
 
 class MainWindow(QMainWindow):
+    ngrok_status_signal = pyqtSignal(str)
+
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Mac Remote")
@@ -61,6 +64,7 @@ class MainWindow(QMainWindow):
         self.settings = QSettings("MacRemote", "ServerApp")
         self.server_thread = None
         self.public_url = None
+        self.ngrok_status_signal.connect(self.on_ngrok_status)
         
         layout = QVBoxLayout()
         
@@ -180,6 +184,9 @@ class MainWindow(QMainWindow):
                 self.public_url = None
         self.update_ui_texts()
 
+    def on_ngrok_status(self, text):
+        self.url_label.setText(text)
+
     def start_ngrok(self):
         try:
             conf.get_default().region = "eu"
@@ -193,9 +200,10 @@ class MainWindow(QMainWindow):
             tunnel = ngrok.connect(PORT, "http")
             url = tunnel.public_url
             self.public_url = url
-            self.url_label.setText(f"{url.replace('http://', 'ws://').replace('https://', 'wss://')}")
+            ws_url = url.replace('http://', 'ws://').replace('https://', 'wss://')
+            self.ngrok_status_signal.emit(ws_url)
         except Exception as e:
-            self.url_label.setText(f"Ngrok Error: {str(e)}")
+            self.ngrok_status_signal.emit(f"Ngrok Error: {str(e)}")
 
     def closeEvent(self, event):
         if self.public_url:
