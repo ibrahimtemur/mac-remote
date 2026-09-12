@@ -173,18 +173,20 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
         }
     }
 
-    // Toggle fullscreen side effect
+    // Toggle fullscreen side effect (Immersive mode without rigid orientation locks)
     LaunchedEffect(isFullscreen) {
         if (activity != null) {
             val window = activity.window
             val insetsController = WindowCompat.getInsetsController(window, window.decorView)
 
             if (isFullscreen) {
-                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                // Let sensor or device decide orientation freely, avoiding hard locks flagged on large screens / Android 16+
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
                 insetsController.hide(WindowInsetsCompat.Type.systemBars())
                 insetsController.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             } else {
-                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                // Restore orientation to follow user/sensor preference without locking
+                activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 insetsController.show(WindowInsetsCompat.Type.systemBars())
             }
         }
