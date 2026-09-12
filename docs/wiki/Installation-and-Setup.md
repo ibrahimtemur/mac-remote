@@ -1,5 +1,11 @@
 # 📦 Installation & Setup Guide
 
+<p align="center">
+  <a href="Installation-and-Setup"><b>🇬🇧 English</b></a> •
+  <a href="Installation-and-Setup-TR"><b>🇹🇷 Türkçe</b></a>
+</p>
+
+
 This guide walks you through installing both the macOS host server application and the Android mobile client, as well as pairing them for the first time.
 
 ---

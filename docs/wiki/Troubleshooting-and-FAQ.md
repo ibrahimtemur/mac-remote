@@ -1,5 +1,11 @@
 # 🔧 Troubleshooting & FAQ
 
+<p align="center">
+  <a href="Troubleshooting-and-FAQ"><b>🇬🇧 English</b></a> •
+  <a href="Troubleshooting-and-FAQ-TR"><b>🇹🇷 Türkçe</b></a>
+</p>
+
+
 Here you will find solutions to the most common questions and issues encountered when using Mac Remote.
 
 ---

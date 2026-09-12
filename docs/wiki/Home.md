@@ -1,5 +1,11 @@
 # 🍏 Welcome to the Mac Remote Wiki
 
+<p align="center">
+  <a href="Home"><b>🇬🇧 English</b></a> •
+  <a href="Home-TR"><b>🇹🇷 Türkçe</b></a>
+</p>
+
+
 **Mac Remote** is an open-source, zero-configuration remote control suite that turns your Android phone or tablet into a powerful wireless trackpad, keyboard, and presentation controller for macOS.
 
 Whether you are presenting slides across a conference room, relaxing on your couch watching movies, or working remotely, Mac Remote provides instant control with low latency and native macOS integration.

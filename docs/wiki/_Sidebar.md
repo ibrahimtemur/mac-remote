@@ -1,4 +1,4 @@
-### 🧭 Navigation
+### 🧭 Navigation (English)
 - [🏠 **Home**](Home)
 - [📦 **Installation & Setup**](Installation-and-Setup)
 - [🌐 **Remote Access & Ngrok**](Remote-Access-and-Ngrok)
@@ -7,8 +7,16 @@
 - [🏗️ **Architecture & Protocols**](Architecture-and-Development)
 
 ---
-### 🔗 Links
+### 🧭 Menü (Türkçe)
+- [🏠 **Ana Sayfa**](Home-TR)
+- [📦 **Kurulum & Başlangıç**](Installation-and-Setup-TR)
+- [🌐 **Uzaktan Erişim & Ngrok**](Remote-Access-and-Ngrok-TR)
+- [🖐️ **Hareketler & Kontroller**](Gestures-and-Controls-TR)
+- [🔧 **Sorun Giderme & SSS**](Troubleshooting-and-FAQ-TR)
+- [🏗️ **Mimari & Geliştirici**](Architecture-and-Development-TR)
+
+---
+### 🔗 Links / Bağlantılar
 - [GitHub Repository](https://github.com/ibrahimtemur/mac-remote)
-- [Latest Releases (v1.1.0)](https://github.com/ibrahimtemur/mac-remote/releases)
-- [Privacy Policy](https://ibrahimtemur.github.io/mac-remote/privacy-policy.html)
-- [Bug Reports & Issues](https://github.com/ibrahimtemur/mac-remote/issues)
+- [Releases / Sürümler](https://github.com/ibrahimtemur/mac-remote/releases)
+- [Privacy Policy / Gizlilik](https://ibrahimtemur.github.io/mac-remote/privacy-policy.html)

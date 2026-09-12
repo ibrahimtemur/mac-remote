@@ -1,5 +1,11 @@
 # 🖐️ Gestures & Controls Guide
 
+<p align="center">
+  <a href="Gestures-and-Controls"><b>🇬🇧 English</b></a> •
+  <a href="Gestures-and-Controls-TR"><b>🇹🇷 Türkçe</b></a>
+</p>
+
+
 The Mac Remote mobile interface is designed to closely mimic the physical Apple Magic Trackpad while offering additional quick-action remote shortcuts.
 
 ---

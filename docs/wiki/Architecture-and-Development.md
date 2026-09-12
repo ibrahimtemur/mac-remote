@@ -1,5 +1,11 @@
 # 🏗️ Architecture & Developer Guide
 
+<p align="center">
+  <a href="Architecture-and-Development"><b>🇬🇧 English</b></a> •
+  <a href="Architecture-and-Development-TR"><b>🇹🇷 Türkçe</b></a>
+</p>
+
+
 This document details the internal architecture, network protocols, and build instructions for contributors and developers working on Mac Remote.
 
 ---

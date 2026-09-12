@@ -1,5 +1,11 @@
 # 🌐 Remote Access & Ngrok Tunneling
 
+<p align="center">
+  <a href="Remote-Access-and-Ngrok"><b>🇬🇧 English</b></a> •
+  <a href="Remote-Access-and-Ngrok-TR"><b>🇹🇷 Türkçe</b></a>
+</p>
+
+
 Mac Remote features native integration with **Ngrok** to allow control of your Mac even when your mobile phone is on cellular data (4G/5G) or connected to a different Wi-Fi network outside your home or office.
 
 ---
