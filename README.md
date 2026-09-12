@@ -4,16 +4,22 @@
 
 ### Ultra-Low Latency Wireless Trackpad, Keyboard & Live Screen Streamer for Mac from Android
 
+<p align="center">
+  <a href="README.md"><b>🇬🇧 English</b></a> •
+  <a href="README.tr.md"><b>🇹🇷 Türkçe</b></a>
+</p>
+
 [![GitHub Release](https://img.shields.io/github/v/release/ibrahimtemur/mac-remote?style=for-the-badge&color=blue)](https://github.com/ibrahimtemur/mac-remote/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 [![CI Build](https://github.com/ibrahimtemur/mac-remote/actions/workflows/build.yml/badge.svg)](https://github.com/ibrahimtemur/mac-remote/actions/workflows/build.yml)
 [![Platform](https://img.shields.io/badge/Platform-macOS%20%7C%20Android-black?style=for-the-badge&logo=apple)](https://github.com/ibrahimtemur/mac-remote)
+[![Wiki Documentation](https://img.shields.io/badge/Documentation-Wiki-orange?style=for-the-badge)](https://github.com/ibrahimtemur/mac-remote/wiki)
 
 <br/>
 
 Turn your Android smartphone into a high-precision, hardware-level remote trackpad, media controller, keyboard, and crystal-clear display mirror for macOS — over both Local Wi-Fi (LAN) and Internet (WAN).
 
-[Features](#-key-features) • [How It Works](#-how-it-works) • [Installation](#-installation) • [Developer Guide](#-developer-guide) • [Security](#-security)
+[Features](#-key-features) • [How It Works](#-how-it-works) • [Installation](#-installation) • [Developer Guide](#-developer-guide) • [Security](#-security) • [Wiki](https://github.com/ibrahimtemur/mac-remote/wiki)
 
 </div>
 
