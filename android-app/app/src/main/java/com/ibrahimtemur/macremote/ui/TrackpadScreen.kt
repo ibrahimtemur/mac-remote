@@ -422,10 +422,13 @@ fun TrackpadScreen(modifier: Modifier = Modifier) {
             modifier = modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.background)
+                .navigationBarsPadding()
         ) {
-            // Top Bar
+            // Top Bar with Status Bar Inset Protection
             Surface(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .statusBarsPadding(),
                 color = MaterialTheme.colorScheme.surface,
                 tonalElevation = 3.dp
             ) {

@@ -16,7 +16,7 @@ android {
         applicationId = "com.ibrahimtemur.macremote"
         minSdk = 26
         targetSdk = 36
-        versionCode = 4
+        versionCode = 5
         versionName = appVersionName
 
         vectorDrawables {
